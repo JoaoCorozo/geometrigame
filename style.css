@@ -1,0 +1,235 @@
+/* Reset básico */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #020617, #000000);
+    color: #e5e7eb;
+    display: flex;
+    display: block;
+}
+
+/* HUD */
+.hud {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 10px;
+}
+
+.hud-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 12px;
+    align-items: flex-start;
+}
+
+.chip {
+    background: rgba(15, 23, 42, 0.85);
+    border-radius: 999px;
+    padding: 4px 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: auto;
+    max-width: 45%;
+}
+
+.chip span.label {
+    opacity: 0.7;
+    font-size: 11px;
+}
+
+.hud-bottom {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+/* Botón saltar */
+#jumpButton {
+    pointer-events: auto;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 26px;
+    font-weight: 600;
+    font-size: 14px;
+    background: linear-gradient(to right, #22c55e, #16a34a);
+    color: #022c22;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+    transform: translateY(0);
+    transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+#jumpButton:active {
+    transform: translateY(2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+}
+
+/* Overlay (menú / game over) */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.98));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    transition: opacity 0.25s ease;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+    max-width: 90%;
+}
+
+/* Título y subtítulo */
+.game-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    background: linear-gradient(to right, #22c55e, #22d3ee);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.game-subtitle {
+    font-size: 12px;
+    opacity: 0.75;
+    margin-bottom: 14px;
+}
+
+/* Loader animado */
+.loader-orbit {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 16px auto;
+}
+
+.loader-orbit::before,
+.loader-orbit::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 2px dashed rgba(148, 163, 184, 0.5);
+    animation: spin 6s linear infinite;
+}
+
+.loader-orbit::after {
+    inset: 10px;
+    border-style: solid;
+    border-color: rgba(34, 197, 94, 0.8);
+    border-left-color: transparent;
+    border-right-color: transparent;
+    animation-duration: 3s;
+}
+
+.loader-cube {
+    position: absolute;
+    inset: 22px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #22c55e, #22d3ee);
+    box-shadow: 0 0 25px rgba(34, 197, 94, 0.8);
+    animation: bob 1.1s ease-in-out infinite;
+}
+
+/* Botones overlay */
+.btn-primary {
+    pointer-events: auto;
+    border: none;
+    border-radius: 999px;
+    padding: 9px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    background: linear-gradient(to right, #22c55e, #16a34a);
+    color: #022c22;
+    box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+    cursor: pointer;
+}
+
+.btn-secondary {
+    pointer-events: auto;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
+    padding: 4px 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#statusText {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+/* Animaciones */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bob {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+    .game-shell {
+        border-radius: 0;
+        max-width: 100%;
+    }
+
+    .overlay-content {
+        padding: 16px;
+    }
+
+    .hud-top {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .chip {
+        max-width: 100%;
+    }
+}

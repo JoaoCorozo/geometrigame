@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Mini Geometry Dash+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#22c55e" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="game-shell">
+        <canvas id="gameCanvas"></canvas>
+
+        <div class="hud">
+            <div class="hud-top">
+                <div class="chip">
+                    <span class="label">Estado</span>
+                    <span id="statusText">Toca INICIAR para empezar</span>
+                </div>
+                <div class="chip">
+                    <span class="label">Score</span>
+                    <span id="score">0</span>
+                </div>
+                <div class="chip">
+                    <span class="label">Mejor</span>
+                    <strong id="bestScore">0</strong>
+                </div>
+            </div>
+            <div class="hud-bottom">
+                <button id="jumpButton">SALTAR</button>
+            </div>
+        </div>
+
+        <div id="overlay" class="overlay">
+            <div class="overlay-content">
+                <div class="loader-orbit">
+                    <div class="loader-cube"></div>
+                </div>
+                <h1 class="game-title" id="overlayTitle">Mini Geometry Dash+</h1>
+                <p class="game-subtitle" id="overlayMessage">
+                    Monedas, skins, checkpoints y parallax. Prepárate para sufrir bonito 💚
+                </p>
+                <button id="startButton" class="btn-primary">Iniciar</button>
+                <!-- Aquí game.js inyecta selector de skins y botón checkpoint -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Registrar Service Worker (para modo offline)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(() => console.log("Service Worker registrado"))
+                    .catch(err => console.log("Error SW", err));
+            });
+        }
+    </script>
+    <script src="game.js"></script>
+</body>
+
+</html>
